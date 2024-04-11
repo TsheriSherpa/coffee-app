@@ -38,7 +38,7 @@ export default function SignupScreen() {
 		setFullName('')
 		setEmail('')
 		setPassword('')
-		navigate('AppStack')
+		navigate('DrawerNav')
 	}
 
 	const showToast = (success =true, msg='') => {

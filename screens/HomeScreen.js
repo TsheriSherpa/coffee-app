@@ -6,9 +6,10 @@ import Carousel from 'react-native-snap-carousel';
 import CoffeeCard from '../components/coffeeCard';
 import Navbar from '../components/navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import {changeDisplayItems, selectCoffeeCategories, selectCoffeeDisplayItems } from '../redux/slice/coffeeSlice';
+import { changeDisplayItems, selectCoffeeCategories, selectCoffeeDisplayItems } from '../redux/slice/coffeeSlice';
 import { fetchFavorites } from '../redux/slice/favouriteSlice';
 import { selectLoggedInUser } from '../redux/slice/authSlice';
+import { BackHandler, Alert } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 const ios = Platform.OS == 'ios';
@@ -24,16 +25,36 @@ export default function HomeScreen() {
 	useEffect(() => {
 		dispatch(changeDisplayItems(activeCategory))
 		dispatch(fetchFavorites(user))
+		const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+		return () => backHandler.remove();
+
 	}, [activeCategory])
+
+	const backAction = () => {
+		Alert.alert('Confirm Exit', 'Are you sure you want to exit the app?', [
+			{
+				text: 'Cancel',
+				onPress: () => null,
+				style: 'cancel',
+			},
+			{
+				text: 'Exit',
+				onPress: () => BackHandler.exitApp(),
+			},
+		]);
+		return true;
+	};
+
 
 	return (
 		<KeyboardAvoidingView behavior="padding" className="flex-1 relative bg-white">
 			<StatusBar />
-			<Image 
-				source={require('../assets/images/beansBackground1.png')} 
-				style={{height: height*0.2}} 
+			<Image
+				source={require('../assets/images/beansBackground1.png')}
+				style={{ height: height * 0.2 }}
 				className="w-full absolute -top-5 opacity-10" />
-			<Navbar screenName={"CafMe"}/>
+			<Navbar screenName={"CafMe"} />
 			{/* 
 				TODO: SEARCH BAR IMPLEMENTATION
 			 <View className="mx-5 shadow" style={{ marginTop: height * 0.06 }}>
@@ -73,7 +94,7 @@ export default function HomeScreen() {
 					<Carousel
 						containerCustomStyle={{ overflow: 'visible' }}
 						data={items}
-						renderItem={({ item }) => <CoffeeCard key={item.id} item={item}/>}
+						renderItem={({ item }) => <CoffeeCard key={item.id} item={item} />}
 						firstItem={1}
 						loop={false}
 						inactiveSlideScale={0.75}
