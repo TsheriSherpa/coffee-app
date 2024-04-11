@@ -37,7 +37,9 @@ const saveOrder = async (user, orderDetails) => {
 
 // Saves user's favourites in firestore
 const saveFavouritesToDb = async (user, favouriteItem) => {
-    favouriteItem.email = user.email
+    console.log(user)
+    favouriteItem = {...favouriteItem, ...{email: user.email}}
+    console.log(favouriteItem)
     try {
         await addDoc(collection(database, "favourites"), favouriteItem);
         console.log('User favourites added to Firestore');

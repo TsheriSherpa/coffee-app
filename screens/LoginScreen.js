@@ -39,7 +39,7 @@ export default function LoginScreen() {
 				.then((result) => {
 					console.log(result)
 					showToast(true, 'Login Success', 'Successfully logged in')
-					navigate('AppStack')
+					navigate('DrawerNav')
 				})
 				.catch((error) => {
 					console.log(error)

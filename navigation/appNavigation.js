@@ -38,7 +38,7 @@ function AuthStack() {
 		<Stack.Navigator>
 			<Stack.Screen name="Login" options={{ headerShown: false }} component={LoginScreen} />
 			<Stack.Screen name="Signup" options={{ headerShown: false }} component={SignupScreen} />
-			<Stack.Screen name="AppStack" options={{ headerShown: false }} component={AppStack} />
+			{/* <Stack.Screen name="AppStack" options={{ headerShown: false }} component={AppStack} /> */}
 		</Stack.Navigator>
 	)
 }
@@ -57,6 +57,8 @@ function AppStack({ isLoggedIn }) {
 			<Stack.Screen name="Product" options={{ headerShown: false }} component={ProductScreen} />
 			<Stack.Screen name="Cart" options={{ headerShown: false }} component={CartScreen} />
 			<Stack.Screen name="Checkout" options={{ headerShown: false }} component={CheckoutCompleteScreen} />
+			<Stack.Screen name="Login" options={{ headerShown: false }} component={LoginScreen} />
+			<Stack.Screen name="Signup" options={{ headerShown: false }} component={SignupScreen} />
 
 		</Stack.Navigator>
 	)
